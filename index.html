@@ -1,156 +1,123 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <link rel="apple-touch-icon" href="icon.png">
-    <link rel="icon" type="image/png" href="icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المطعم النموذجي - طلبات مباشرة</title>
+    <title>منيو علي الجد الأصلي</title>
     <style>
-        :root { --primary: #d35400; --secondary: #2c3e50; --bg: #fdfbf9; --gr: #27ae60; --rd: #e74c3c; }
-        body { font-family: 'Tahoma', sans-serif; background-color: var(--bg); padding: 10px; display: flex; flex-direction: column; align-items: center; margin: 0; }
-        .card { background: white; width: 100%; max-width: 500px; padding: 15px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); box-sizing: border-box; margin-bottom: 20px; }
-        .header { text-align: center; color: var(--primary); font-size: 24px; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .item-row { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
-        .item-img { width: 75px; height: 75px; border-radius: 10px; object-fit: cover; background: #eee; }
-        .item-content { flex-grow: 1; }
-        .item-name { font-size: 15px; font-weight: bold; color: var(--secondary); margin-bottom: 5px; display: block; }
-        .controls { display: flex; justify-content: space-between; align-items: center; background: #fdf2e9; padding: 5px; border-radius: 8px; }
-        .btn { border: none; width: 35px; height: 35px; border-radius: 8px; font-size: 20px; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center; outline: none; }
-        .btn-plus { background-color: var(--gr); }
-        .btn-minus { background-color: var(--rd); }
-        .display-area { text-align: center; flex-grow: 1; }
-        .weight { font-size: 13px; color: #666; display: block; }
-        .price { font-size: 15px; color: var(--primary); font-weight: bold; }
-        .total-box { background: #2c3e50; color: white; padding: 15px; border-radius: 12px; text-align: center; margin: 20px 0; font-size: 20px; font-weight: bold; border: 2px solid var(--primary); }
-        .total-amount { color: #f1c40f; font-size: 24px; }
-        input { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: right; font-size: 14px; }
-        .send-btn { background-color: #25d366; color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        :root { --og: #FF6600; --dk: #2c3e50; --gr: #27ae60; --rd: #e74c3c; --bl: #2980b9; }
+        body { font-family: 'Tahoma', sans-serif; background: #fdfbf9; padding: 10px; direction: rtl; margin: 0; padding-bottom: 220px; }
+        .card { background: white; width: 100%; max-width: 500px; margin: auto; padding: 15px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 2px solid var(--og); box-sizing: border-box; }
+        .header { text-align: center; color: var(--og); font-size: 24px; font-weight: bold; margin-bottom: 15px; border-bottom: 3px solid var(--og); padding-bottom: 10px; }
+        .st { background: var(--dk); color: white; padding: 10px; border-radius: 10px; margin: 15px 0 10px 0; font-size: 18px; border-right: 6px solid var(--og); text-align: right; }
+        .row { background: #fff; border: 1px solid #ddd; border-radius: 15px; padding: 12px; margin-bottom: 12px; }
+        .ctrl { display: flex; justify-content: space-between; align-items: center; background: #fff5ed; padding: 10px; border-radius: 12px; direction: rtl; }
+        .btn { border: none; width: 45px; height: 45px; border-radius: 10px; font-size: 24px; cursor: pointer; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; outline: none; }
+        .bp { background: var(--gr); order: 1; }
+        .bm { background: var(--rd); order: 3; }
+        .disp { text-align: center; flex-grow: 1; order: 2; }
+        .wt { font-size: 14px; color: #555; display: block; font-weight: bold; }
+        .pt { font-size: 16px; color: var(--og); font-weight: bold; }
+        
+        /* القسم السفلي لعرض الطلبات */
+        .order-view { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dk); color: white; padding: 15px; border-top: 4px solid var(--og); border-radius: 20px 20px 0 0; z-index: 1000; max-width: 500px; margin: auto; box-shadow: 0 -5px 15px rgba(0,0,0,0.3); }
+        .items-box { font-size: 14px; color: #f1c40f; margin-bottom: 10px; max-height: 60px; overflow-y: auto; border-bottom: 1px solid #444; padding-bottom: 5px; line-height: 1.5; font-weight: bold; }
+        .total-line { font-size: 22px; font-weight: bold; display: flex; justify-content: space-between; color: white; }
+        
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: right; font-size: 16px; }
+        .wa-btn { background: #25d366; color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .call-btn { background: var(--bl); color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header">🥘 المطعم النموذجي الحديث</div>
-    <div id="full-menu" style="text-align: center; padding: 20px;">جاري تحميل الأسعار المحدثة...</div>
-    <div class="total-box">المجموع الكلي: <span id="final-total" class="total-amount">0</span> دينار</div>
-    <div class="user-info">
-        <input type="text" id="userName" placeholder="اسم الزبون الكريم">
-        <input type="text" id="userAddress" placeholder="عنوان التوصيل أو المنطقة">
-        <input type="text" id="userNote" placeholder="ملاحظات إضافية">
+    <div class="header">🍊 مطعم علي الجد الأصلي</div>
+    <div id="m-list">جاري تحميل المنيو...</div>
+    <input type="text" id="cust-name" placeholder="اسم الزبون الكريم">
+    <input type="text" id="cust-addr" placeholder="العنوان">
+    <button class="wa-btn" onclick="sendWA()">إرسال الطلب واتساب ✅</button>
+    <a href="tel:07807466488" class="call-btn">إتصال مباشر 📞</a>
+</div>
+
+<div class="order-view">
+    <div id="cart-items-list" class="items-box">قائمة المشتريات: فارغة</div>
+    <div class="total-line">
+        <span>المجموع الكلي:</span>
+        <span><span id="final-total-val">0</span> د.ع</span>
     </div>
-    <button class="send-btn" onclick="sendWhatsApp()">إرسال الطلب (واتساب) ✅</button>
-    <button class="send-btn" style="background-color: #2980b9; margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; border: none; color: white; font-weight: bold; cursor: pointer;" onclick="window.location.href='tel:07807466488'">
-    طلب عبر اتصال هاتفي مباشر 📞
-</button>
-  <a href="tel:07807466488" style="background-color: #2980b9; color: white; padding: 15px; text-decoration: none; border-radius: 50px; display: block; margin-top: 10px; font-weight: bold; font-size: 18px;">
-    📞 اتصال هاتفي مباشر
-</a>
 </div>
 
 <script>
-    // الرابط الذي قمت بإنشائه أنت الآن
-    const apiURL = "https://sheetdb.io/api/v1/shdaju22b6oef"; 
-    
-    const weightLabels = ["ربع كيلو", "نصف كيلو", "ثلاث أرباع كيلو", "كيلو واحد", "كيلو وربع", "كيلو ونصف", "كيلو وثلاث أرباع", "كيلوين"];
+var L = {
+    Q: ["ربع", "نص", "3/4", "1كغم"],
+    H: ["نص", "1كغم", "1.5", "2كغم"],
+    K: ["1كغم", "2كغم", "3كغم"],
+    F: ["وجبة", "2", "3"]
+};
 
-    let menuItems = [
-        { id: 'lamb', name: 'لحم غنم طازج', price: 8000, img: 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=200' },
-        { id: 'beef_shrah', name: 'لحم عجل شرح', price: 4500, img: 'https://images.unsplash.com/photo-1558030006-450675393462?w=200' },
-        { id: 'beef_ozm', name: 'لحم عجل عظم', price: 4000, img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=200' },
-        { id: 'kebab', name: 'كباب نموذجي فاخر', price: 4500, img: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=200' },
-        { id: 'tikka', name: 'مشوي تكّة', price: 4500, img: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=200' },
-        { id: 'mealak', name: 'مشوي معلاك', price: 4500, img: 'https://images.unsplash.com/photo-1541544537156-7627a7a4aa1c?w=200' },
-        { id: 'wings', name: 'أجنحة دجاج مشوية', price: 4000, img: 'https://images.unsplash.com/photo-1558030006-450675393462?w=200' }
-    ];
+var itemsData = [
+    {s:"🔥 قسم المشاوي", n:"كباب لحم", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"كباب دجاج", p:4000, t:"Q"},
+    {s:"🔥 المشاوي", n:"كبدة شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"أجنحة شوي", p:6000, t:"H"},
+    {s:"🔥 المشاوي", n:"عصا شوي", p:11000, t:"H"}, {s:"🔥 المشاوي", n:"دجاجة شوي", p:12000, t:"F"},
+    {s:"🥩 خانة اللحوم", n:"لحم غنم", p:6000, t:"Q"}, {s:"🥩 خانة اللحوم", n:"عجل شرح", p:4000, t:"Q"},
+    {s:"🥩 خانة اللحوم", n:"عجل عظم", p:3500, t:"Q"}, {s:"🥩 خانة اللحوم", n:"لحم مثروم", p:4000, t:"Q"},
+    {s:"🥩 خانة اللحوم", n:"عظم (كيلو)", p:3000, t:"K"},
+    {s:"🍗 خانة فرش", n:"دجاجة (1250غم)", p:8000, t:"F"}, {s:"🍗 فرش", n:"صدر دجاج", p:7500, t:"F"},
+    {s:"🍗 فرش", n:"باجة غنم", p:20000, t:"F"}, {s:"🍗 فرش", n:"بركر لحم", p:8000, t:"H"},
+    {s:"🍗 فرش", n:"بركر دجاج", p:8000, t:"H"}, {s:"🍗 فرش", n:"كبة تمن", p:4000, t:"F"},
+    {s:"🍗 فرش", n:"لسان عجل", p:12000, t:"K"}, {s:"🍗 فرش", n:"جلاوي غنم", p:9000, t:"H"},
+    {s:"🍗 فرش", n:"معلاك غنم", p:18000, t:"F"}
+];
 
-    let cart = {};
-    menuItems.forEach(item => cart[item.id] = -1);
+var cart = {};
 
-    async function loadPrices() {
-        try {
-            const response = await fetch(apiURL);
-            const data = await response.json();
-            if (Array.isArray(data)) {
-                data.forEach(row => {
-                    const item = menuItems.find(i => i.id === row.id);
-                    if (item) item.price = parseInt(row.price);
-                });
-            }
-            renderItems();
-        } catch (e) {
-            console.log("فشل تحميل الأسعار الحية، استخدام الافتراضية.");
-            renderItems();
+function drawMenu() {
+    var html = "", lastS = "";
+    for (var i = 0; i < itemsData.length; i++) {
+        var it = itemsData[i];
+        if (it.s !== lastS) { html += '<div class="st">' + it.s + '</div>'; lastS = it.s; }
+        if (!(i in cart)) cart[i] = -1;
+        var q = cart[i], txt = (q === -1) ? "إختر" : L[it.t][q], pr = (q === -1) ? it.p : (q + 1) * it.p;
+        html += '<div class="row"><b>' + it.n + '</b><div class="ctrl">' +
+             '<button class="btn bp" onclick="up(' + i + ',1)">+</button>' +
+             '<div class="disp"><span class="wt">' + txt + '</span><span class="pt">' + pr.toLocaleString() + ' د.ع</span></div>' +
+             '<button class="btn bm" onclick="up(' + i + ',-1)">-</button></div></div>';
+    }
+    document.getElementById('m-list').innerHTML = html;
+    updateSelectedItems();
+}
+
+function up(idx, v) { if (cart[idx] + v >= -1 && cart[idx] + v < 4) { cart[idx] += v; drawMenu(); } }
+
+function updateSelectedItems() {
+    var total = 0, summaryList = [];
+    for (var i = 0; i < itemsData.length; i++) {
+        if (cart[i] > -1) {
+            total += (cart[i] + 1) * itemsData[i].p;
+            summaryList.push(itemsData[i].n + " (" + L[itemsData[i].t][cart[i]] + ")");
         }
     }
+    document.getElementById('final-total-val').innerText = total.toLocaleString();
+    document.getElementById('cart-items-list').innerText = summaryList.length ? summaryList.join(" | ") : "قائمة المشتريات: فارغة";
+}
 
-    function renderItems() {
-        const menuContainer = document.getElementById('full-menu');
-        menuContainer.innerHTML = ''; 
-        let totalSum = 0;
-
-        menuItems.forEach(item => {
-            const step = cart[item.id];
-            const weightText = step === -1 ? "اضغط للإضافة" : weightLabels[step];
-            const currentItemPrice = step === -1 ? 0 : (step + 1) * item.price;
-            totalSum += currentItemPrice;
-            const displayPrice = step === -1 ? "سعر الربع: " + item.price.toLocaleString() : currentItemPrice.toLocaleString() + " د.ع";
-
-            menuContainer.innerHTML += `
-                <div class="item-row">
-                    <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/150?text=Food'">
-                    <div class="item-content">
-                        <span class="item-name">${item.name}</span>
-                        <div class="controls">
-                            <button class="btn btn-plus" onclick="changeQty('${item.id}', 1)">+</button>
-                            <div class="display-area">
-                                <span class="weight">${weightText}</span>
-                                <span class="price">${displayPrice}</span>
-                            </div>
-                            <button class="btn btn-minus" onclick="changeQty('${item.id}', -1)">-</button>
-                        </div>
-                    </div>
-                </div>`;
-        });
-        document.getElementById('final-total').innerText = totalSum.toLocaleString();
-    }
-
-    function changeQty(id, val) {
-        if (cart[id] + val >= -1 && cart[id] + val < weightLabels.length) {
-            cart[id] += val;
-            renderItems();
+function sendWA() {
+    var n = document.getElementById('cust-name').value, a = document.getElementById('cust-addr').value;
+    if (!n || !a) return alert("يرجى كتابة الاسم والعنوان");
+    var msg = "*طلب جديد من علي الجد*\n👤 الاسم: " + n + "\n📍 العنوان: " + a + "\n🍴 الطلبات:\n";
+    var hasItems = false;
+    for (var i = 0; i < itemsData.length; i++) {
+        if (cart[i] > -1) {
+            hasItems = true;
+            msg += "- " + itemsData[i].n + " (" + L[itemsData[i].t][cart[i]] + ")\n";
         }
     }
+    if (!hasItems) return alert("لم تختر أي طلب!");
+    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع الكلي: " + document.getElementById('final-total-val').innerText + " د.ع"));
+}
 
-    function sendWhatsApp() {
-        const name = document.getElementById('userName').value;
-        const addr = document.getElementById('userAddress').value;
-        const note = document.getElementById('userNote').value || "لا توجد";
-        
-        if (!name || !addr) return alert("يرجى إدخال الاسم والعنوان");
-
-        let msg = `*طلب جديد من المطعم النموذجي*%0A👤 الاسم: ${name}%0A📍 العنوان: ${addr}%0A📝 ملاحظات: ${note}%0A%0A🍴 الطلبات:%0A`;
-        let hasItems = false;
-
-        menuItems.forEach(item => {
-            if (cart[item.id] !== -1) {
-                hasItems = true;
-                const weight = weightLabels[cart[item.id]];
-                const price = (cart[item.id] + 1) * item.price;
-                msg += `- ${item.name}: ${weight} (${price.toLocaleString()} د.ع)%0A`;
-            }
-        });
-
-        if (!hasItems) return alert("يرجى اختيار صنف واحد على الأقل");
-        msg += `%0A💰 المجموع الكلي: ${document.getElementById('final-total').innerText} دينار`;
-        
-        window.open(`https://wa.me/9647807466488?text=${msg}`);
-    }
-
-    window.onload = loadPrices;
+drawMenu();
 </script>
 </body>
-
 </html>
-
-
