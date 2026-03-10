@@ -3,48 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منيو علي الجد الأصلي</title>
+    <title>مطعم علي الجد</title>
     <style>
-        :root { --og: #FF6600; --dk: #2c3e50; --gr: #27ae60; --rd: #e74c3c; --bl: #2980b9; }
-        body { font-family: 'Tahoma', sans-serif; background: #fdfbf9; padding: 10px; direction: rtl; margin: 0; padding-bottom: 220px; }
-        .card { background: white; width: 100%; max-width: 500px; margin: auto; padding: 15px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 2px solid var(--og); box-sizing: border-box; }
-        .header { text-align: center; color: var(--og); font-size: 24px; font-weight: bold; margin-bottom: 15px; border-bottom: 3px solid var(--og); padding-bottom: 10px; }
-        .st { background: var(--dk); color: white; padding: 10px; border-radius: 10px; margin: 15px 0 10px 0; font-size: 18px; border-right: 6px solid var(--og); text-align: right; }
+        body { font-family: Arial, sans-serif; background: #fdfbf9; padding: 10px; direction: rtl; margin: 0; padding-bottom: 220px; }
+        .card { background: white; width: 100%; max-width: 500px; margin: auto; padding: 15px; border-radius: 20px; border: 2px solid #FF6600; }
+        .header { text-align: center; color: #FF6600; font-size: 24px; font-weight: bold; border-bottom: 3px solid #FF6600; padding-bottom: 10px; }
+        .st { background: #2c3e50; color: white; padding: 10px; border-radius: 10px; margin: 20px 0 10px 0; font-size: 18px; border-right: 6px solid #FF6600; text-align: right; }
         .row { background: #fff; border: 1px solid #ddd; border-radius: 15px; padding: 12px; margin-bottom: 12px; }
-        .ctrl { display: flex; justify-content: space-between; align-items: center; background: #fff5ed; padding: 10px; border-radius: 12px; direction: rtl; }
-        .btn { border: none; width: 45px; height: 45px; border-radius: 10px; font-size: 24px; cursor: pointer; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; outline: none; }
-        .bp { background: var(--gr); order: 1; }
-        .bm { background: var(--rd); order: 3; }
-        .disp { text-align: center; flex-grow: 1; order: 2; }
+        .ctrl { display: flex; justify-content: space-between; align-items: center; background: #fff5ed; padding: 10px; border-radius: 12px; }
+        .btn { border: none; width: 45px; height: 45px; border-radius: 10px; font-size: 24px; cursor: pointer; color: white; font-weight: bold; }
+        .bp { background: #27ae60; }
+        .bm { background: #e74c3c; }
+        .disp { text-align: center; flex-grow: 1; }
         .wt { font-size: 14px; color: #555; display: block; font-weight: bold; }
-        .pt { font-size: 16px; color: var(--og); font-weight: bold; }
-        
-        /* القسم السفلي لعرض الطلبات */
-        .order-view { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dk); color: white; padding: 15px; border-top: 4px solid var(--og); border-radius: 20px 20px 0 0; z-index: 1000; max-width: 500px; margin: auto; box-shadow: 0 -5px 15px rgba(0,0,0,0.3); }
-        .items-box { font-size: 14px; color: #f1c40f; margin-bottom: 10px; max-height: 60px; overflow-y: auto; border-bottom: 1px solid #444; padding-bottom: 5px; line-height: 1.5; font-weight: bold; }
-        .total-line { font-size: 22px; font-weight: bold; display: flex; justify-content: space-between; color: white; }
-        
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: right; font-size: 16px; }
+        .pt { font-size: 16px; color: #FF6600; font-weight: bold; }
+        .footer-fixed { position: fixed; bottom: 0; left: 0; right: 0; background: #2c3e50; color: white; padding: 15px; border-top: 4px solid #FF6600; z-index: 1000; max-width: 500px; margin: auto; }
+        #cart-text { font-size: 13px; color: #f1c40f; margin-bottom: 8px; max-height: 50px; overflow-y: auto; border-bottom: 1px solid #444; }
+        .total-line { font-size: 22px; font-weight: bold; display: flex; justify-content: space-between; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; text-align: right; box-sizing: border-box; }
         .wa-btn { background: #25d366; color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; }
-        .call-btn { background: var(--bl); color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .call-btn { background: #2980b9; color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <div class="header">🍊 مطعم علي الجد الأصلي</div>
-    <div id="m-list">جاري تحميل المنيو...</div>
-    <input type="text" id="cust-name" placeholder="اسم الزبون الكريم">
-    <input type="text" id="cust-addr" placeholder="العنوان">
+    <div id="m-body"></div>
+    <input type="text" id="c-name" placeholder="اسم الزبون الكريم">
+    <input type="text" id="c-addr" placeholder="العنوان">
     <button class="wa-btn" onclick="sendWA()">إرسال الطلب واتساب ✅</button>
     <a href="tel:07807466488" class="call-btn">إتصال مباشر 📞</a>
 </div>
 
-<div class="order-view">
-    <div id="cart-items-list" class="items-box">قائمة المشتريات: فارغة</div>
+<div class="footer-fixed">
+    <div id="cart-text">قائمة الطلبات: فارغة</div>
     <div class="total-line">
-        <span>المجموع الكلي:</span>
-        <span><span id="final-total-val">0</span> د.ع</span>
+        <span>المجموع:</span>
+        <span><span id="final-total">0</span> د.ع</span>
     </div>
 </div>
 
@@ -56,68 +52,85 @@ var L = {
     F: ["وجبة", "2", "3"]
 };
 
-var itemsData = [
-    {s:"🔥 قسم المشاوي", n:"كباب لحم", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"كباب دجاج", p:4000, t:"Q"},
-    {s:"🔥 المشاوي", n:"كبدة شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"أجنحة شوي", p:6000, t:"H"},
-    {s:"🔥 المشاوي", n:"عصا شوي", p:11000, t:"H"}, {s:"🔥 المشاوي", n:"دجاجة شوي", p:12000, t:"F"},
-    {s:"🥩 خانة اللحوم", n:"لحم غنم", p:6000, t:"Q"}, {s:"🥩 خانة اللحوم", n:"عجل شرح", p:4000, t:"Q"},
-    {s:"🥩 خانة اللحوم", n:"عجل عظم", p:3500, t:"Q"}, {s:"🥩 خانة اللحوم", n:"لحم مثروم", p:4000, t:"Q"},
-    {s:"🥩 خانة اللحوم", n:"عظم (كيلو)", p:3000, t:"K"},
-    {s:"🍗 خانة فرش", n:"دجاجة (1250غم)", p:8000, t:"F"}, {s:"🍗 فرش", n:"صدر دجاج", p:7500, t:"F"},
-    {s:"🍗 فرش", n:"باجة غنم", p:20000, t:"F"}, {s:"🍗 فرش", n:"بركر لحم", p:8000, t:"H"},
-    {s:"🍗 فرش", n:"بركر دجاج", p:8000, t:"H"}, {s:"🍗 فرش", n:"كبة تمن", p:4000, t:"F"},
-    {s:"🍗 فرش", n:"لسان عجل", p:12000, t:"K"}, {s:"🍗 فرش", n:"جلاوي غنم", p:9000, t:"H"},
-    {s:"🍗 فرش", n:"معلاك غنم", p:18000, t:"F"}
+var items = [
+    {s:"🔥 المشاوي", n:"كباب لحم", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"كباب دجاج", p:4000, t:"Q"},
+    {s:"🔥 المشاوي", n:"كبدة شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"كبدة بدون شوي", p:4500, t:"Q"},
+    {s:"🔥 المشاوي", n:"تكة لحم شوي", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"تكة لحم بدون شوي", p:5500, t:"Q"},
+    {s:"🔥 المشاوي", n:"تكة دجاج شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"تكة دجاج بدون شوي", p:4000, t:"Q"},
+    {s:"🔥 المشاوي", n:"أجنحة شوي", p:6000, t:"H"}, {s:"🔥 المشاوي", n:"أجنحة بدون شوي", p:5000, t:"H"},
+    {s:"🔥 المشاوي", n:"عصا شوي", p:11000, t:"H"}, {s:"🔥 المشاوي", n:"عصا بدون شوي", p:5000, t:"H"},
+    {s:"🔥 المشاوي", n:"دجاجة شوي", p:12000, t:"F"}, {s:"🔥 المشاوي", n:"دجاجة بدون شوي", p:10000, t:"F"},
+    {s:"🥩 اللحوم", n:"لحم غنم", p:6000, t:"Q"}, {s:"🥩 اللحوم", n:"عجل شرح", p:4000, t:"Q"},
+    {s:"🥩 اللحوم", n:"عجل عظم", p:3500, t:"Q"}, {s:"🥩 اللحوم", n:"مثروم", p:4000, t:"Q"},
+    {s:"🥩 اللحوم", n:"عظم", p:3000, t:"K"},
+    {s:"🍗 فرش", n:"دجاجة كاملة", p:8000, t:"F"}, {s:"🍗 فرش", n:"عصا طبل", p:7000, t:"F"},
+    {s:"🍗 فرش", n:"أفخاذ", p:6000, t:"F"}, {s:"🍗 فرش", n:"كبدة دجاج", p:3000, t:"F"},
+    {s:"🍗 فرش", n:"صدر دجاج", p:7500, t:"F"}, {s:"🍗 فرش", n:"باجة غنم", p:20000, t:"F"},
+    {s:"🍗 فرش", n:"بركر لحم", p:8000, t:"H"}, {s:"🍗 فرش", n:"بركر دجاج", p:8000, t:"H"},
+    {s:"🍗 فرش", n:"كبة تمن", p:4000, t:"F"}, {s:"🍗 فرش", n:"كبة مرق", p:4000, t:"F"},
+    {s:"🍗 فرش", n:"كاهي", p:5000, t:"F"}, {s:"🍗 فرش", n:"لسان عجل", p:12000, t:"K"},
+    {s:"🍗 فرش", n:"كراعين", p:8000, t:"K"}, {s:"🍗 فرش", n:"معلاك غنم", p:18000, t:"F"},
+    {s:"🍗 فرش", n:"عصائص غنم", p:7500, t:"H"}, {s:"🍗 فرش", n:"مخ غنم", p:5000, t:"F"},
+    {s:"🍗 فرش", n:"جلاوي غنم", p:9000, t:"H"}, {s:"🍗 فرش", n:"قلب عجل", p:18000, t:"F"}
 ];
 
 var cart = {};
 
-function drawMenu() {
-    var html = "", lastS = "";
-    for (var i = 0; i < itemsData.length; i++) {
-        var it = itemsData[i];
-        if (it.s !== lastS) { html += '<div class="st">' + it.s + '</div>'; lastS = it.s; }
+function start() {
+    var h = "";
+    var lastS = "";
+    for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        if (it.s !== lastS) {
+            h += '<div class="st">' + it.s + '</div>';
+            lastS = it.s;
+        }
         if (!(i in cart)) cart[i] = -1;
-        var q = cart[i], txt = (q === -1) ? "إختر" : L[it.t][q], pr = (q === -1) ? it.p : (q + 1) * it.p;
-        html += '<div class="row"><b>' + it.n + '</b><div class="ctrl">' +
+        var q = cart[i];
+        var txt = (q === -1) ? "إختر" : L[it.t][q];
+        var pr = (q === -1) ? it.p : (q + 1) * it.p;
+        
+        h += '<div class="row"><b>' + it.n + '</b><div class="ctrl">' +
              '<button class="btn bp" onclick="up(' + i + ',1)">+</button>' +
              '<div class="disp"><span class="wt">' + txt + '</span><span class="pt">' + pr.toLocaleString() + ' د.ع</span></div>' +
              '<button class="btn bm" onclick="up(' + i + ',-1)">-</button></div></div>';
     }
-    document.getElementById('m-list').innerHTML = html;
-    updateSelectedItems();
+    document.getElementById('m-body').innerHTML = h;
+    update();
 }
 
-function up(idx, v) { if (cart[idx] + v >= -1 && cart[idx] + v < 4) { cart[idx] += v; drawMenu(); } }
+function up(idx, v) {
+    if (cart[idx] + v >= -1 && cart[idx] + v < 4) {
+        cart[idx] += v;
+        start();
+    }
+}
 
-function updateSelectedItems() {
-    var total = 0, summaryList = [];
-    for (var i = 0; i < itemsData.length; i++) {
+function update() {
+    var total = 0;
+    var list = [];
+    for (var i = 0; i < items.length; i++) {
         if (cart[i] > -1) {
-            total += (cart[i] + 1) * itemsData[i].p;
-            summaryList.push(itemsData[i].n + " (" + L[itemsData[i].t][cart[i]] + ")");
+            total += (cart[i] + 1) * items[i].p;
+            list.push(items[i].n + " (" + L[items[i].t][cart[i]] + ")");
         }
     }
-    document.getElementById('final-total-val').innerText = total.toLocaleString();
-    document.getElementById('cart-items-list').innerText = summaryList.length ? summaryList.join(" | ") : "قائمة المشتريات: فارغة";
+    document.getElementById('final-total').innerText = total.toLocaleString();
+    document.getElementById('cart-text').innerText = list.length ? list.join(" | ") : "قائمة الطلبات: فارغة";
 }
 
 function sendWA() {
-    var n = document.getElementById('cust-name').value, a = document.getElementById('cust-addr').value;
-    if (!n || !a) return alert("يرجى كتابة الاسم والعنوان");
-    var msg = "*طلب جديد من علي الجد*\n👤 الاسم: " + n + "\n📍 العنوان: " + a + "\n🍴 الطلبات:\n";
-    var hasItems = false;
-    for (var i = 0; i < itemsData.length; i++) {
-        if (cart[i] > -1) {
-            hasItems = true;
-            msg += "- " + itemsData[i].n + " (" + L[itemsData[i].t][cart[i]] + ")\n";
-        }
+    var n = document.getElementById('c-name').value;
+    var a = document.getElementById('c-addr').value;
+    if (!n || !a) return alert("اكمل البيانات");
+    var msg = "*طلب جديد*\n👤 " + n + "\n📍 " + a + "\n🍴 الطلبات:\n";
+    for (var i = 0; i < items.length; i++) {
+        if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n";
     }
-    if (!hasItems) return alert("لم تختر أي طلب!");
-    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع الكلي: " + document.getElementById('final-total-val').innerText + " د.ع"));
+    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع: " + document.getElementById('final-total').innerText));
 }
 
-drawMenu();
+start();
 </script>
 </body>
 </html>
