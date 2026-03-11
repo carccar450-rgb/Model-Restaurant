@@ -95,15 +95,38 @@ function update() {
     document.getElementById('final-total').innerText = total.toLocaleString();
     document.getElementById('cart-text').innerText = list.length ? list.join(" | ") : "قائمة الطلبات: فارغة";
 }
-
 function sendWA() {
-    var n = document.getElementById('c-name').value;
-    var a = document.getElementById('c-addr').value;
-    var note = document.getElementById('c-note').value; // السطر الجديد لسحب الملاحظات
+    var n = document.getElementById('c-name').value; // الاسم
+    var a = document.getElementById('c-addr').value; // العنوان
+    var note = document.getElementById('c-note').value; // الملاحظات
     
     if (!n || !a) return alert("يرجى إكمال الاسم والعنوان");
 
+    // بناء نص الرسالة
     var msg = "*طلب جديد من قصابية ومشويات علي الجد*\n";
+    msg += "👤 الاسم: " + n + "\n";
+    msg += "📍 العنوان: " + a + "\n";
+    
+    // إذا كتب الزبون ملاحظة، يتم إضافتها هنا
+    if (note) {
+        msg += "📝 الملاحظات: " + note + "\n";
+    }
+    
+    msg += "\n🍴 الطلبات:\n";
+
+    for (var i = 0; i < items.length; i++) { 
+        if (cart[i] > -1) {
+            msg += "• " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n"; 
+        }
+    }
+    
+    // المجموع الكلي
+    var total = document.getElementById('final-total').innerText;
+    msg += "\n💰 المجموع الكلي: " + total + " د.ع";
+
+    // فتح الواتساب بالرسالة الجديدة
+    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg));
+}
     msg += "👤 الاسم: " + n + "\n";
     msg += "📍 العنوان: " + a + "\n";
     if (note) msg += "📝 ملاحظات: " + note + "\n"; // السطر الجديد لإضافة الملاحظة للرسالة
@@ -120,5 +143,6 @@ window.onload = loadMenu;
 </script>
 </body>
 </html>
+
 
 
