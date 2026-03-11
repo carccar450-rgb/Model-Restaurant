@@ -28,7 +28,7 @@
 
 <div class="card">
     <div class="header">🍊 مطعم علي الجد الأصلي</div>
-    <div id="m-body">جاري تحميل المنيو والأسعار...</div>
+    <div id="m-body" style="text-align: center; padding: 20px;">جاري تحميل المنيو والأسعار...</div>
     
     <input type="text" id="c-name" placeholder="اسم الزبون الكريم">
     <input type="text" id="c-addr" placeholder="العنوان">
@@ -51,14 +51,19 @@ var items = [];
 var cart = {};
 
 async function loadMenu() {
+    // هذا الرابط مرتبط بجدولك (مطعم نموذجي حديث)
     const api = 'https://sheetdb.io/api/v1/shdaju22b6oef';
     try {
         const res = await fetch(api);
         const data = await res.json();
-        items = data.map(r => ({ s: r.category, n: r.name, p: parseInt(r.price), t: r.type || "Q" }));
-        start();
+        if(data && data.length > 0) {
+            items = data.map(r => ({ s: r.category, n: r.name, p: parseInt(r.price), t: r.type || "Q" }));
+            start();
+        } else {
+            document.getElementById('m-body').innerText = "الجدول فارغ، يرجى التأكد من البيانات";
+        }
     } catch (e) {
-        document.getElementById('m-body').innerText = "خطأ في الاتصال بالأسعار";
+        document.getElementById('m-body').innerText = "حدث خطأ في جلب البيانات من جوجل شيت";
     }
 }
 
@@ -94,10 +99,10 @@ function update() {
 function sendWA() {
     var n = document.getElementById('c-name').value;
     var a = document.getElementById('c-addr').value;
-    if (!n || !a) return alert("اكمل البيانات");
-    var msg = "*طلب جديد*\n👤 " + n + "\n📍 " + a + "\n🍴الطلبات:\n";
+    if (!n || !a) return alert("يرجى إكمال الاسم والعنوان");
+    var msg = "*طلب جديد من مطعم علي الجد*\n👤 " + n + "\n📍 " + a + "\n🍴 الطلبات:\n";
     for (var i = 0; i < items.length; i++) { if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n"; }
-    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع: " + document.getElementById('final-total').innerText));
+    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع الكلي: " + document.getElementById('final-total').innerText + " د.ع"));
 }
 
 window.onload = loadMenu;
