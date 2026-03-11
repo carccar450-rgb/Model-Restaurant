@@ -12,8 +12,7 @@
         .row { background: #fff; border: 1px solid #ddd; border-radius: 15px; padding: 12px; margin-bottom: 12px; }
         .ctrl { display: flex; justify-content: space-between; align-items: center; background: #fff5ed; padding: 10px; border-radius: 12px; }
         .btn { border: none; width: 45px; height: 45px; border-radius: 10px; font-size: 24px; cursor: pointer; color: white; font-weight: bold; }
-        .bp { background: #27ae60; }
-        .bm { background: #e74c3c; }
+        .bp { background: #27ae60; } .bm { background: #e74c3c; }
         .disp { text-align: center; flex-grow: 1; }
         .wt { font-size: 14px; color: #555; display: block; font-weight: bold; }
         .pt { font-size: 16px; color: #FF6600; font-weight: bold; }
@@ -29,13 +28,13 @@
 
 <div class="card">
     <div class="header">🍊 مطعم علي الجد الأصلي</div>
-    <div id="m-body"></div>
-  
+    <div id="m-body">جاري تحميل المنيو والأسعار...</div>
+    
     <input type="text" id="c-name" placeholder="اسم الزبون الكريم">
     <input type="text" id="c-addr" placeholder="العنوان">
-  <input type="text" id="c-note" placeholder="ملاحظات الطلب">
+    <input type="text" id="c-note" placeholder="ملاحظات الطلب">
     <button class="wa-btn" onclick="sendWA()">إرسال الطلب واتساب ✅</button>
-    <a href="tel:07807466488" class="call-btn">إتصال مباشر 📞</a>
+    <a href="tel:07807466488" class="call-btn">اتصال مباشر 📞</a>
 </div>
 
 <div class="footer-fixed">
@@ -47,94 +46,41 @@
 </div>
 
 <script>
-    <script>
-// الرابط السحري الذي يجلب الأسعار من جوجل شيت
-const sheetdbUrl = 'https://sheetdb.io/api/v1/shdaju22b6oef'; 
-
-var items = []; // نتركها فارغة لأنها ستمتلئ من الجدول
+var L = { Q: ["ربع", "نص", "3/4", "1كغم"], H: ["نص", "1كغم", "1.5", "2كغم"], K: ["1كغم", "2كغم", "3كغم"], F: ["وجبة", "2", "3"] };
+var items = [];
 var cart = {};
 
 async function loadMenu() {
+    const api = 'https://sheetdb.io/api/v1/shdaju22b6oef';
     try {
-        const response = await fetch(sheetdbUrl);
-        const data = await response.json();
-        
-        // تحويل بيانات الجدول إلى الصيغة التي يفهمها الكود
-        items = data.map(row => ({
-            s: row.category,
-            n: row.name,
-            p: parseInt(row.price),
-            t: row.type || "Q"
-        }));
-
-        start(); // تشغيل القائمة بعد سحب الأسعار
-    } catch (error) {
-        console.error("خطأ في الاتصال بالجدول:", error);
+        const res = await fetch(api);
+        const data = await res.json();
+        items = data.map(r => ({ s: r.category, n: r.name, p: parseInt(r.price), t: r.type || "Q" }));
+        start();
+    } catch (e) {
+        document.getElementById('m-body').innerText = "خطأ في الاتصال بالأسعار";
     }
 }
 
-// تشغيل جلب البيانات عند فتح الصفحة
-window.onload = loadMenu;
-
-// باقي الأكواد الخاصة بـ start و update تبقى كما هي...
-</script>
-    {s:"🔥 المشاوي", n:"كباب لحم", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"كباب دجاج", p:4000, t:"Q"},
-    {s:"🔥 المشاوي", n:"كبدة شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"كبدة بدون شوي", p:4500, t:"Q"},
-    {s:"🔥 المشاوي", n:"تكة لحم شوي", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"تكة لحم بدون شوي", p:5500, t:"Q"},
-    {s:"🔥 المشاوي", n:"تكة دجاج شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"تكة دجاج بدون شوي", p:4000, t:"Q"},
-    {s:"🔥 المشاوي", n:"أجنحة شوي", p:6000, t:"H"}, {s:"🔥 المشاوي", n:"أجنحة بدون شوي", p:5000, t:"H"},
-    {s:"🔥 المشاوي", n:"عصا شوي", p:11000, t:"H"}, {s:"🔥 المشاوي", n:"عصا بدون شوي", p:5000, t:"H"},
-    {s:"🔥 المشاوي", n:"دجاجة شوي", p:12000, t:"F"}, {s:"🔥 المشاوي", n:"دجاجة بدون شوي", p:10000, t:"F"},
-    {s:"🥩 اللحوم", n:"لحم غنم", p:6000, t:"Q"}, {s:"🥩 اللحوم", n:"لحم عجل شرح", p:4000, t:"Q"},
-    {s:"🥩 اللحوم", n:"لحم عجل عظم", p:3500, t:"Q"}, {s:"🥩 اللحوم", n:"لحم مثروم", p:4000, t:"Q"},
-{s:"🥩 اللحوم", n:"ليه", p:6000, t:"Q"},
-    {s:"🥩 اللحوم", n:"عظم", p:3000, t:"K"},
-    {s:"🍗 فرش", n:"دجاجة كاملة", p:8000, t:"F"}, {s:"🍗 فرش", n:"عصا طبل", p:7000, t:"F"},
-    {s:"🍗 فرش", n:"أفخاذ", p:6000, t:"F"}, {s:"🍗 فرش", n:"كبدة دجاج", p:3000, t:"F"},
-    {s:"🍗 فرش", n:"صدر دجاج", p:7500, t:"F"}, {s:"🍗 فرش", n:"باجة غنم", p:20000, t:"F"},
-    {s:"🍗 فرش", n:"بركر لحم", p:8000, t:"H"}, {s:"🍗 فرش", n:"بركر دجاج", p:8000, t:"H"},
-    {s:"🍗 فرش", n:"كبة تمن", p:4000, t:"F"}, {s:"🍗 فرش", n:"كبة مرق", p:4000, t:"F"},
-    {s:"🍗 فرش", n:"كاهي", p:5000, t:"F"}, {s:"🍗 فرش", n:"لسان عجل", p:12000, t:"K"},
-    {s:"🍗 فرش", n:"كراعين", p:8000, t:"K"}, {s:"🍗 فرش", n:"معلاك غنم", p:18000, t:"F"},
-    {s:"🍗 فرش", n:"عصائص غنم", p:7500, t:"H"}, {s:"🍗 فرش", n:"مخ غنم", p:5000, t:"F"},
-    {s:"🍗 فرش", n:"جلاوي غنم", p:9000, t:"H"}, {s:"🍗 فرش", n:"قلب عجل", p:18000, t:"F"}
-];
-
-var cart = {};
-
 function start() {
-    var h = "";
-    var lastS = "";
+    var h = ""; var lastS = "";
     for (var i = 0; i < items.length; i++) {
         var it = items[i];
-        if (it.s !== lastS) {
-            h += '<div class="st">' + it.s + '</div>';
-            lastS = it.s;
-        }
+        if (it.s !== lastS) { h += '<div class="st">' + it.s + '</div>'; lastS = it.s; }
         if (!(i in cart)) cart[i] = -1;
         var q = cart[i];
         var txt = (q === -1) ? "إختر" : L[it.t][q];
         var pr = (q === -1) ? it.p : (q + 1) * it.p;
-        
-        h += '<div class="row"><b>' + it.n + '</b><div class="ctrl">' +
-             '<button class="btn bp" onclick="up(' + i + ',1)">+</button>' +
-             '<div class="disp"><span class="wt">' + txt + '</span><span class="pt">' + pr.toLocaleString() + ' د.ع</span></div>' +
-             '<button class="btn bm" onclick="up(' + i + ',-1)">-</button></div></div>';
+        h += '<div class="row"><b>' + it.n + '</b><div class="ctrl"><button class="btn bp" onclick="up(' + i + ',1)">+</button><div class="disp"><span class="wt">' + txt + '</span><span class="pt">' + pr.toLocaleString() + ' د.ع</span></div><button class="btn bm" onclick="up(' + i + ',-1)">-</button></div></div>';
     }
     document.getElementById('m-body').innerHTML = h;
     update();
 }
 
-function up(idx, v) {
-    if (cart[idx] + v >= -1 && cart[idx] + v < 4) {
-        cart[idx] += v;
-        start();
-    }
-}
+function up(idx, v) { if (cart[idx] + v >= -1 && cart[idx] + v < 4) { cart[idx] += v; start(); } }
 
 function update() {
-    var total = 0;
-    var list = [];
+    var total = 0; var list = [];
     for (var i = 0; i < items.length; i++) {
         if (cart[i] > -1) {
             total += (cart[i] + 1) * items[i].p;
@@ -149,15 +95,12 @@ function sendWA() {
     var n = document.getElementById('c-name').value;
     var a = document.getElementById('c-addr').value;
     if (!n || !a) return alert("اكمل البيانات");
-    var msg = "*طلب جديد*\n👤 " + n + "\n📍 " + a + "\n🍴 الطلبات:\n";
-    for (var i = 0; i < items.length; i++) {
-        if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n";
-    }
+    var msg = "*طلب جديد*\n👤 " + n + "\n📍 " + a + "\n🍴الطلبات:\n";
+    for (var i = 0; i < items.length; i++) { if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n"; }
     window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع: " + document.getElementById('final-total').innerText));
 }
 
-start();
+window.onload = loadMenu;
 </script>
 </body>
 </html>
-
