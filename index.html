@@ -47,14 +47,37 @@
 </div>
 
 <script>
-var L = {
-    Q: ["ربع", "نص", "3/4", "1كغم"],
-    H: ["نص", "1كغم", "1.5", "2كغم"],
-    K: ["1كغم", "2كغم", "3كغم"],
-    F: ["وجبة", "2", "3"]
-};
+    <script>
+// الرابط السحري الذي يجلب الأسعار من جوجل شيت
+const sheetdbUrl = 'https://sheetdb.io/api/v1/shdaju22b6oef'; 
 
-var items = [
+var items = []; // نتركها فارغة لأنها ستمتلئ من الجدول
+var cart = {};
+
+async function loadMenu() {
+    try {
+        const response = await fetch(sheetdbUrl);
+        const data = await response.json();
+        
+        // تحويل بيانات الجدول إلى الصيغة التي يفهمها الكود
+        items = data.map(row => ({
+            s: row.category,
+            n: row.name,
+            p: parseInt(row.price),
+            t: row.type || "Q"
+        }));
+
+        start(); // تشغيل القائمة بعد سحب الأسعار
+    } catch (error) {
+        console.error("خطأ في الاتصال بالجدول:", error);
+    }
+}
+
+// تشغيل جلب البيانات عند فتح الصفحة
+window.onload = loadMenu;
+
+// باقي الأكواد الخاصة بـ start و update تبقى كما هي...
+</script>
     {s:"🔥 المشاوي", n:"كباب لحم", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"كباب دجاج", p:4000, t:"Q"},
     {s:"🔥 المشاوي", n:"كبدة شوي", p:5000, t:"Q"}, {s:"🔥 المشاوي", n:"كبدة بدون شوي", p:4500, t:"Q"},
     {s:"🔥 المشاوي", n:"تكة لحم شوي", p:4500, t:"Q"}, {s:"🔥 المشاوي", n:"تكة لحم بدون شوي", p:5500, t:"Q"},
@@ -137,3 +160,4 @@ start();
 </script>
 </body>
 </html>
+
