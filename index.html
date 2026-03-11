@@ -99,15 +99,29 @@ function update() {
 function sendWA() {
     var n = document.getElementById('c-name').value;
     var a = document.getElementById('c-addr').value;
+    var note = document.getElementById('c-note').value; // سحب الملاحظة
+    
     if (!n || !a) return alert("يرجى إكمال الاسم والعنوان");
-    var msg = "*طلب جديد من قصابية ومشويات علي الجد*\n👤 " + n + "\n📍 " + a + "\n🍴 الطلبات:\n";
-    for (var i = 0; i < items.length; i++) { if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n"; }
-    window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع الكلي: " + document.getElementById('final-total').innerText + " د.ع"));
+
+    var msg = "*طلب جديد من قصابية ومشويات علي الجد*\n";
+    msg += "👤 الاسم: " + n + "\n";
+    msg += "📍 العنوان: " + a + "\n";
+    if (note) msg += "📝 ملاحظة: " + note + "\n"; // إضافة الملاحظة للرسالة
+    msg += "\n🍴 الطلبات:\n";
+
+    for (var i = 0; i < items.length; i++) { 
+        if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n"; 
+    }
+    
+    var total = document.getElementById('final-total').innerText;
+    var url = "https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع الكلي: " + total + " د.ع");
+    window.open(url);
 }
 
 window.onload = loadMenu;
 </script>
 </body>
 </html>
+
 
 
