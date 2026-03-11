@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قصابية ومشويات علي الجد</title>
+    <title>مطعم علي الجد</title>
     <style>
         body { font-family: Arial, sans-serif; background: #fdfbf9; padding: 10px; direction: rtl; margin: 0; padding-bottom: 220px; }
         .card { background: white; width: 100%; max-width: 500px; margin: auto; padding: 15px; border-radius: 20px; border: 2px solid #FF6600; }
@@ -51,7 +51,7 @@ var items = [];
 var cart = {};
 
 async function loadMenu() {
-    // هذا الرابط مرتبط بجدولك (قصابية ومشويات علي الجد)
+    // هذا الرابط مرتبط بجدولك (مطعم نموذجي حديث)
     const api = 'https://sheetdb.io/api/v1/shdaju22b6oef';
     try {
         const res = await fetch(api);
@@ -100,7 +100,7 @@ function sendWA() {
     var n = document.getElementById('c-name').value;
     var a = document.getElementById('c-addr').value;
     if (!n || !a) return alert("يرجى إكمال الاسم والعنوان");
-    var msg = قصابية ومشويات علي الجد*\n👤 " + n + "\n📍 " + a + "\n🍴 الطلبات:\n";
+    var msg = "*طلب جديد من مطعم علي الجد*\n👤 " + n + "\n📍 " + a + "\n🍴 الطلبات:\n";
     for (var i = 0; i < items.length; i++) { if (cart[i] > -1) msg += "- " + items[i].n + " (" + L[items[i].t][cart[i]] + ")\n"; }
     window.open("https://wa.me/9647807466488?text=" + encodeURIComponent(msg + "\n💰 المجموع الكلي: " + document.getElementById('final-total').innerText + " د.ع"));
 }
@@ -109,5 +109,3 @@ window.onload = loadMenu;
 </script>
 </body>
 </html>
-
-
